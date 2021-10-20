@@ -1,6 +1,6 @@
 <template>
   <div >
-      {{ route.params.country}}
+      <p>{{ route.params.country}}</p>
   </div>
 </template>
 

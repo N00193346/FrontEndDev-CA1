@@ -1,21 +1,24 @@
 <template>
   <div >
-      <CountryViewer 
+    
+      <CountryCard 
       v-for="country in countries"
       :key = "country.ccn3"
       :country="country"/>
+     
   </div>
 </template>
+     
 
 <script>
 
 import axios from 'axios'
-import CountryViewer from '@/components/CountryViewer'
+import CountryCard from '@/components/CountryCard'
 
     export default {
         name: 'AllCountries',
         components: {
-            CountryViewer,
+            CountryCard,
         },
         data () {
             return {

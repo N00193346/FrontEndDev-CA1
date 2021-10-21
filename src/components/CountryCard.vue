@@ -1,11 +1,11 @@
 <template>
 <div>
-   <!-- :img-src= country.flags.png -->
+  
   <b-row>
     <b-col>
     <b-card
     :title= country.name.common 
-   
+     :img-src= country.coatOfArms.png
     img-alt="Image"
     img-top
     tag="article"
@@ -13,7 +13,13 @@
     class="mb-2"
   >
     <b-card-text>
-     {{ country.capital[0]}}
+     <b>Capital City: </b>{{ country.capital[0]}}
+     <hr>
+      <b>Languages: </b>{{ country.languages}}
+        <hr>
+      <b>Currency: </b> {{ country.currencies}}
+        <hr>
+       <b>Population: </b>  {{ country.population}}
     </b-card-text>
 
     <b-button href="#" variant="primary">View Country</b-button>

@@ -1,14 +1,8 @@
 <template>
-  <!-- <div >
-    
-      <CountryCard 
-      v-for="country in countries"
-      :key = "country.ccn3"
-      :country="country"/>
-     
-  </div> -->
 
-    <div>
+
+
+    <div class="container">
         <CountryCard
         :country=countries 
         />
@@ -41,7 +35,6 @@ import CountryCard from '@/components/CountryCard'
                  .then(response => {
                      console.log(response)
                      this.countries = response.data
-                    // this.randomCountry();
                      this.countriesLength = this.countries.length
                      console.log("The length of the array is " + this.countriesLength)
                      this.randomCountryNum = (Math.round(Math.random()*this.countriesLength))
@@ -51,19 +44,15 @@ import CountryCard from '@/components/CountryCard'
                  .catch(error => console.log(error))
         },
         methods: {
-            // randomCountry() {
-            //     this.countriesLength = this.countries.length
-            //     console.log("The length of the array is " + this.countriesLength)
-            //     this.randomCountryNum = (Math.round(Math.random()*this.countriesLength))
-            //      console.log("The number of the random country is  " + this.randomCountryNum)
-            //     return 
-
-
-            // }
+       
         }
     }
 </script>
 
 <style>
-
+.container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
 </style>

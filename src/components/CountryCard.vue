@@ -1,10 +1,11 @@
 <template>
 <div>
+   <!-- :img-src= country.flags.png -->
   <b-row>
     <b-col>
     <b-card
     :title= country.name.common 
-    :img-src= country.flags.png
+   
     img-alt="Image"
     img-top
     tag="article"

@@ -1,12 +1,12 @@
 <template>
-  <div >
-      {{ route.params.country}}
+  <div>
+      
   </div>
 </template>
 
 <script>
     export default {
-        name: 'Country'
+        name: 'NavBar'
     }
 </script>
 

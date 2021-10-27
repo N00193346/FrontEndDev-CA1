@@ -1,11 +1,14 @@
 <template>
-  <div >
-    
-      <CountryCard 
+  <div class="container">
+
+ 
+        <CountryCard 
       v-for="country in countries"
       :key = "country.ccn3"
       :country="country"/>
-     
+ 
+
+    
   </div>
 </template>
      
@@ -37,5 +40,9 @@ import CountryCard from '@/components/CountryCard'
 </script>
 
 <style>
-
+.container{
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap ;
+}
 </style>

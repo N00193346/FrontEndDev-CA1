@@ -1,11 +1,10 @@
 <template>
-<div>
-  
-  <b-row>
-    <b-col>
+
+ 
+    <router-link style="text-decoration: none; color: inherit;" :to="{name: 'country', params: {country: country.name.official}}">
     <b-card
     :title= country.name.common 
-     :img-src= country.coatOfArms.png
+     :img-src= country.flags.png
     img-alt="Image"
     img-top
     tag="article"
@@ -22,13 +21,11 @@
        <b>Population: </b>  {{ country.population}}
     </b-card-text>
 
-    <b-button href="#" variant="primary">View Country</b-button>
   </b-card>
-    </b-col>
+  </router-link >
 
-  </b-row>
  
-</div>
+
 </template>
 
 <script>
@@ -41,5 +38,8 @@
 </script>
 
 <style>
+.card{
+  margin: 20px;
 
+}
 </style>

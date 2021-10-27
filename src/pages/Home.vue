@@ -1,4 +1,5 @@
 <template>
+<div>
 <b-container>
  
 <div>
@@ -13,21 +14,30 @@
 <h1> More countries from  {{this.countries.subregion}}</h1>
 </div>
 </b-container>
+
+  <div class="container">
+    <CountryCard 
+      v-for="country in relatedCountries"
+      :key = "country.ccn3"
+      :country="country"/>
+  </div>
+</div>
 </template>
      
 
 <script>
 
 import axios from 'axios'
-// import CountryCard from '@/components/CountryCard'
+import CountryCard from '@/components/CountryCard'
 const UNSPLASH_URL = "https://api.unsplash.com/search/photos/?client_id="
 const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&"
+const RESTCOUNTRIES_URL = "https://restcountries.com/v3.1/"
 
 
     export default {
         name: 'AllCountries',
         components: {
-            // CountryCard,
+            CountryCard,
         },
         data () {
             
@@ -36,11 +46,12 @@ const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&"
                 randomCountryNum: null,
                 countries: [],
                 countryImage: String,
+                relatedCountries: [],
                
             }
         },
         mounted () {
-            axios.get('https://restcountries.com/v3.1/all')
+            axios.get(`${RESTCOUNTRIES_URL}all`)
                  .then(response => {
                      console.log(response)
                      this.countries = response.data
@@ -51,6 +62,7 @@ const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&"
                      this.countries = response.data[this.randomCountryNum]
                     console.log("The name of the random country is  " + this.countries.name.common)
                     this.getCountryImage(this.countries.name.common)
+                     this.getCountryBySubregion(this.countries.subregion)
                      })
                  .catch(error => console.log(error))
         },
@@ -63,7 +75,14 @@ const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&"
                     console.log("Image Url is:" + this.countryImage)
                      })
                  .catch(error => console.log(error))
-        
+            },
+            getCountryBySubregion(subregion){
+            axios.get(`${RESTCOUNTRIES_URL}region/${subregion}`)
+                 .then(response => {
+                     console.log(response)
+                     this.relatedCountries = response.data
+                     })
+                 .catch(error => console.log(error))
             }
        
         }

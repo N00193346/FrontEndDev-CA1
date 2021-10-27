@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "@/pages/Home";
 import AllCountries from "@/pages/AllCountries";
 import Country from "@/pages/Country";
+import SearchCountry from "@/pages/SearchCountry";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ export default new VueRouter({
       path: "/countries/:country",
       name: "country",
       component: Country,
+    },  
+    {
+      path: "/searchCountry/:country",
+      name: "search_country",
+      component: SearchCountry,
     },  
   ],
 });

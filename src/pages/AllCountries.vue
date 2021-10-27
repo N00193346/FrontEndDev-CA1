@@ -40,9 +40,5 @@ import CountryCard from '@/components/CountryCard'
 </script>
 
 <style>
-.container{
-  display: flex;
-  align-content: flex-start;
-  flex-wrap: wrap ;
-}
+
 </style>

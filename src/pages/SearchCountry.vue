@@ -7,23 +7,8 @@
       :country="country"/>
 
      
-  <br>
   
-
-      <!-- <b-jumbotron v-if="events !== null" bg-variant="info" text-variant="black" border-variant="dark">
-    <template #header>{{ events[0].name}}</template>
-
-    <template #lead>
-    <b>Date:</b> {{ events[0].dates.start.localDate}}
-    <br>
-    <b>Price:</b> {{ events[0].priceRanges[1].max}}
-    </template>
-
-    <hr class="my-4">
-
-   <img :src="`${events[0].images[0].url}`">
-  </b-jumbotron>
-  -->
+ 
 
   </div>
 </template>

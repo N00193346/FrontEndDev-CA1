@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-navbar toggleable="lg" type="dark" variant="info">
+  <b-navbar class="navbar" toggleable="lg" type="dark" variant="info">
     <b-navbar-brand href="#">Country Thing</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -33,12 +33,15 @@
               return
               }
              
-               this.$router.push(`/countries/${this.term}`)
+               this.$router.push(`/searchCountry/${this.term}`)
           }
         }
     }
 </script>
 
 <style>
-
+.navbar {
+    margin: 0;
+    padding: 7.5px 15px;
+}
 </style>

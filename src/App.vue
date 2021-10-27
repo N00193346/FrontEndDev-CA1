@@ -17,5 +17,11 @@ export default {
 </script>
 
 <style>
+.app {
 
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap ;
+
+}
 </style>

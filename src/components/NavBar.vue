@@ -29,7 +29,6 @@
         methods: {
           searchCountry(){
             if(!this.term) {
-    
               alert("Please enter a search term")
               return
               }

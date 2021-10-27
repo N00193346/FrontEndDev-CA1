@@ -1,50 +1,61 @@
 <template>
-  <div class="container">
- 
-        <CountryCard 
-      v-for="country in countries"
-      :key = "country.ccn3"
-      :country="country"/>
+<div>
 
-     
-  <br>
+ <b-container>
+    <b-carousel
+        controls
+        :interval="0"
+        indicators
+        no-animation
+        img-width="1080"
+        img-height="480"
+
   
+     >
+    <b-carousel-slide :img-src="this.countryImages[0]" >
+      <h1 class="carouselTitle">{{this.countries[0].name.official}}</h1>
+    </b-carousel-slide>
+    <b-carousel-slide :img-src="this.countryImages[1]" >
+          <h1 class="carouselTitle">{{this.countries[0].name.official}}</h1>
+    </b-carousel-slide>
+    <b-carousel-slide :img-src="this.countryImages[2]" >
+          <h1 class="carouselTitle">{{this.countries[0].name.official}}</h1>
+    </b-carousel-slide>
+    <b-carousel-slide :img-src="this.countryImages[3]" >
+          <h1 class="carouselTitle">{{this.countries[0].name.official}}</h1>
+    </b-carousel-slide>
+    <b-carousel-slide :img-src="this.countryImages[4]" >
+          <h1 class="carouselTitle">{{this.countries[0].name.official}}</h1>
+    </b-carousel-slide>
+    </b-carousel>
 
-      <!-- <b-jumbotron v-if="events !== null" bg-variant="info" text-variant="black" border-variant="dark">
-    <template #header>{{ events[0].name}}</template>
+    
 
-    <template #lead>
-    <b>Date:</b> {{ events[0].dates.start.localDate}}
-    <br>
-    <b>Price:</b> {{ events[0].priceRanges[1].max}}
-    </template>
+ </b-container>
 
-    <hr class="my-4">
-
-   <img :src="`${events[0].images[0].url}`">
-  </b-jumbotron>
-  -->
-
-  </div>
+</div>
 </template>
 
 <script>
 import axios from 'axios'
-import CountryCard from '@/components/CountryCard'
+// import CountryCard from '@/components/CountryCard'
 // import EventCard from '@/components/EventCard'
 const EVENTS_API_KEY = "&apikey=EcGMSU6HjGfoAlCxMfW8P70iTXUrz8Le";
 const EVENTS_URL = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode="
+const UNSPLASH_URL = "https://api.unsplash.com/search/photos/?client_id="
+const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&"
 
 export default {
   name: 'Country',
        components: {
-            CountryCard,
+            // CountryCard,
             // EventCard,
         },
         data () {
             return {
                 countries: [],
-                events: []
+                events: [],
+                countryImages: []
             }
         },
         mounted(){
@@ -53,6 +64,7 @@ export default {
                 console.log(response.data)
                 this.countries = response.data
                 this.getEventData(this.countries[0].cca2);
+                this.getCountryImages(this.countries[0].name.common)
               })
               .catch(error => console.log(error))
         },
@@ -64,8 +76,22 @@ export default {
                 this.events = response.data._embedded.events
               })
                  .catch(error => console.log(error))
-          }
-        }
+                },
+                  getCountryImages(countryName) {
+                  axios.get(`${UNSPLASH_URL}${UNSPLASH_API_KEY}&query=${countryName}`)
+                   .then(response => {
+                     console.log(response)
+                      for(var i=0; i<5; i++){
+                        this.countryImages.push(response.data.results[i].urls.regular)
+                    }
+                    console.log("The Image urls " + this.countryImages)
+                     })
+                     
+                 .catch(error => console.log(error))
+            }
+                 
+        },
+       
 }
 </script>
 
@@ -74,5 +100,25 @@ export default {
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
+}
+
+.image{
+     display: block;
+  margin-left: auto;
+  margin-right: auto;
+    max-width: 1024px;
+     max-height: 480px;
+    
+}
+
+   .carousel-item img {
+        height:80vh!important ;
+        width:100vh!important ;
+    }
+.carouselTitle{
+    font-size: 52px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-bottom: 600px;
+    margin-right: 350px;
 }
 </style>

@@ -54,15 +54,21 @@ const RESTCOUNTRIES_URL = "https://restcountries.com/v3.1/"
             axios.get(`${RESTCOUNTRIES_URL}all`)
                  .then(response => {
                      console.log(response)
+                     //Get all countries
                      this.countries = response.data
+                     //Get the length of the number of countries in the array
                      this.countriesLength = this.countries.length
                      console.log("The length of the array is " + this.countriesLength)
+                     //Get a random number between 0 and the length of the countries array
                      this.randomCountryNum = (Math.round(Math.random()*this.countriesLength))
                      console.log("The number of the random country is  " + this.randomCountryNum)
+                     //Assign the data of the country with the random number into the countries array
                      this.countries = response.data[this.randomCountryNum]
                     console.log("The name of the random country is  " + this.countries.name.common)
+                    //Passing the name of the country into a method to get a related image for that country
                     this.getCountryImage(this.countries.name.common)
-                     this.getCountryBySubregion(this.countries.subregion)
+                    //Passing the country's subregion to get countries from the same region
+                    this.getCountryBySubregion(this.countries.subregion)
                      })
                  .catch(error => console.log(error))
         },
@@ -80,7 +86,10 @@ const RESTCOUNTRIES_URL = "https://restcountries.com/v3.1/"
             axios.get(`${RESTCOUNTRIES_URL}region/${subregion}`)
                  .then(response => {
                      console.log(response)
-                     this.relatedCountries = response.data
+                     //Looping so only get 3 related countries
+                      for(var i=0; i<3; i++){
+                        this.relatedCountries.push(response.data[i])
+                    }
                      })
                  .catch(error => console.log(error))
             }

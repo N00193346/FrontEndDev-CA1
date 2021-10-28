@@ -9,9 +9,8 @@
         no-animation
         img-width="1080"
         img-height="480"
-
-  
      >
+
     <b-carousel-slide :img-src="this.countryImages[0]" >
       <h1 class="carouselTitle">{{this.countries[0].name.official}}</h1>
     </b-carousel-slide>
@@ -29,9 +28,29 @@
     </b-carousel-slide>
     </b-carousel>
 
-    
+ </b-container>
+
+  <b-container class="bv-example-row">
+  <b-row>
+    <b-col>
+            <iframe
+              class="margin"
+              width="600"
+              height="450"
+              style="border:0"
+              loading="lazy"
+              allowfullscreen
+              :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyDuFmToFBLDcb07oNdj66Gvebao37XTG74&q=${this.countries[0].name.common}`">
+            </iframe>
+    </b-col>
+    <b-col> </b-col>
+  </b-row>
+
+
 
  </b-container>
+
+
 
 </div>
 </template>
@@ -44,12 +63,14 @@ const EVENTS_API_KEY = "&apikey=EcGMSU6HjGfoAlCxMfW8P70iTXUrz8Le";
 const EVENTS_URL = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode="
 const UNSPLASH_URL = "https://api.unsplash.com/search/photos/?client_id="
 const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&"
+// const GOOGLEMAPS = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDuFmToFBLDcb07oNdj66Gvebao37XTG74&q="
 
 export default {
   name: 'Country',
        components: {
             // CountryCard,
             // EventCard,
+            // GOOGLEMAPS,
         },
         data () {
             return {
@@ -110,7 +131,6 @@ export default {
      max-height: 480px;
     
 }
-
    .carousel-item img {
         height:80vh!important ;
         width:100vh!important ;
@@ -120,5 +140,9 @@ export default {
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     margin-bottom: 600px;
     margin-right: 350px;
+}
+
+.margin{
+  margin-top: 20px;
 }
 </style>

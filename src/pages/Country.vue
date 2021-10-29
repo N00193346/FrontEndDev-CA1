@@ -1,38 +1,48 @@
 <template>
   <div>
-    <b-container>
+   
+    <b-container fluid="md">
+      <b-row>
+        <div class="title">
+     {{ this.countries[0].name.official }} 
+        </div>
+      </b-row>
+
+      <b-row>
       <b-carousel
         controls
         :interval="0"
         indicators
         no-animation
-        img-width="1080"
+        img-width="100vh"
         img-height="480"
       >
         <b-carousel-slide :img-src="this.countryImages[0]">
-          <h1 class="carouselTitle">{{ this.countries[0].name.official }}</h1>
+ 
         </b-carousel-slide>
         <b-carousel-slide :img-src="this.countryImages[1]">
-          <h1 class="carouselTitle">{{ this.countries[0].name.official }}</h1>
+   
         </b-carousel-slide>
         <b-carousel-slide :img-src="this.countryImages[2]">
-          <h1 class="carouselTitle">{{ this.countries[0].name.official }}</h1>
+      
         </b-carousel-slide>
         <b-carousel-slide :img-src="this.countryImages[3]">
-          <h1 class="carouselTitle">{{ this.countries[0].name.official }}</h1>
+     
         </b-carousel-slide>
         <b-carousel-slide :img-src="this.countryImages[4]">
-          <h1 class="carouselTitle">{{ this.countries[0].name.official }}</h1>
+      
         </b-carousel-slide>
       </b-carousel>
-    </b-container>
+      </b-row>
 
-    <b-container class="bv-example-row">
       <b-row>
-        <b-col>
+        <b-col cols="8">
+            <div class="subtitle">
+              Location:
+            </div>
           <iframe
-            class="margin"
-            width="600"
+           
+            width="100%"
             height="450"
             style="border:0"
             loading="lazy"
@@ -44,10 +54,29 @@
           </iframe>
         </b-col>
         <b-col>
-          <h1>
-            The weather is {{ Math.round(this.weather.main.temp) }}°c in
-            {{ this.countries[0].capital[0] }}
-          </h1>
+             <div class="subtitle">
+              Weather:
+            </div>
+            <b-card 
+              :img-src="`http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@2x.png`"
+              img-alt="Image"
+              img-height="100"
+              img-width="100"
+              img-top
+              tag="article"
+           
+              class="mb-2"
+  >           
+               <b-card-text>
+                {{ this.countries[0].capital[0]  }}
+              </b-card-text>
+              <b-card-text>
+                {{ Math.round(this.weather.main.temp) }}°C
+              </b-card-text>
+               <b-card-text>
+                {{this.weather.weather[0].main}}
+              </b-card-text>
+            </b-card>
         </b-col>
       </b-row>
     </b-container>
@@ -127,6 +156,7 @@ export default {
 
         .catch((error) => console.log(error));
     },
+    //Get country's weather using latitude and longitude 
     getCountryWeather(lat, lon) {
       axios
         .get(
@@ -134,6 +164,7 @@ export default {
         )
         .then((response) => {
           this.weather = response.data;
+          console.log("The weather icon is : " + this.weather.weather[0].icon)
         })
 
         .catch((error) => console.log(error));
@@ -149,16 +180,29 @@ export default {
   flex-wrap: wrap;
 }
 
-.image {
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 64px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-bottom: 10px;
+  font-size: 46px;
+  font-weight: 700;
+}
+
+/* .image {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1024px;
+  max-width: 100%;
   max-height: 480px;
-}
+} */
 .carousel-item img {
   height: 80vh !important ;
-  width: 100vh !important ;
+  width: 124vh !important ;
 }
 .carouselTitle {
   font-size: 52px;
@@ -168,7 +212,16 @@ export default {
   margin-right: 350px;
 }
 
+.flex{
+  display: flex;
+}
+
 .margin {
   margin-top: 20px;
+}
+
+.card-text{
+  font-size: 32px;
+  font-weight: 700;
 }
 </style>

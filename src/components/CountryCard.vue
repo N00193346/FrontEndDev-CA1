@@ -1,7 +1,7 @@
 <template>
 
  
-    <router-link style="text-decoration: none; color: inherit;" :to="{name: 'country', params: {country: country.name.official}}">
+    <router-link style="text-decoration: none; color: inherit;" :to="{name: 'country', params: {country: country.name.common}}">
     <b-card
     :title= country.name.common 
      :img-src= country.flags.png

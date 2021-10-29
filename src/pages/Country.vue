@@ -79,6 +79,28 @@
             </b-card>
         </b-col>
       </b-row>
+
+      <b-row>
+         <div class="subtitle">
+              Public Holidays:
+            </div>
+         <b-card
+          :title = this.holidays[0].name
+          :img-src= this.holidayImages[0]
+          img-alt="Image"
+          img-top
+          tag="article"
+          style="max-width: 20rem;"
+          class="mb-2"
+        >
+          <b-card-text>
+            {{this.holidays[0].description}}
+          </b-card-text>
+
+         
+  </b-card>
+
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -94,7 +116,8 @@ const UNSPLASH_URL = "https://api.unsplash.com/search/photos/?client_id=";
 const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&";
 const OPENWEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?";
 const OPENWEATHER_API_KEY = "&appid=3cc88d355d79a4f5c037a56d50e686b2";
-// const GOOGLEMAPS = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDuFmToFBLDcb07oNdj66Gvebao37XTG74&q="
+const CALANDARIFIC_URL = "https://calendarific.com/api/v2/holidays?&";
+const CALANDARIFIC_API_KEY = "api_key=a14b28bae234cb619999d15226d47cb2244b9992";
 
 export default {
   name: "Country",
@@ -111,6 +134,8 @@ export default {
       weather: [],
       lat: String,
       lon: String,
+      holidays: [],
+      holidayImages: [],
     };
   },
   mounted() {
@@ -121,7 +146,6 @@ export default {
         console.log(response.data);
         //Put country's information in countries array
         this.countries = response.data;
-
         this.getEventData(this.countries[0].cca2);
         //Put country name into get images method
         this.getCountryImages(this.countries[0].name.common);
@@ -129,6 +153,7 @@ export default {
         this.lat = this.countries[0].capitalInfo.latlng[0];
         this.lon = this.countries[0].capitalInfo.latlng[1];
         this.getCountryWeather(this.lat, this.lon);
+        this.getCountryHolidays(this.countries[0].cca2);
       })
       .catch((error) => console.log(error));
   },
@@ -165,6 +190,35 @@ export default {
         .then((response) => {
           this.weather = response.data;
           console.log("The weather icon is : " + this.weather.weather[0].icon)
+        })
+
+        .catch((error) => console.log(error));
+    },
+    //Get country's holidays using country code
+     getCountryHolidays(countryCode) {
+      axios
+        .get(`${CALANDARIFIC_URL}${CALANDARIFIC_API_KEY}&country=${countryCode}&year=2021`)
+        .then((response) => {
+          console.log(response.data);
+          //Loop through results to get 4 holidays
+           for (var i = 0; i < 4; i++) {
+            //Push the name of the holiday into the holidays array
+            this.holidays.push(response.data.response.holidays[i]);
+            //Pass the name of holiday into the get holiday image to get a related image
+            this.getHolidayImages(response.data.response.holidays[i].name);
+          }
+          console.log("The holidays are: " + this.holidays)
+        })
+        .catch((error) => console.log(error));
+    }, 
+    //Get images related to holiday
+    getHolidayImages(holidayName) {
+      axios
+        .get(`${UNSPLASH_URL}${UNSPLASH_API_KEY}&query=${holidayName}`)
+        .then((response) => {
+          console.log(response);
+          this.holidayImages.push(response.data.results[0].urls.regular);
+          console.log("The Holiday Image urls " + this.holidayImages);
         })
 
         .catch((error) => console.log(error));

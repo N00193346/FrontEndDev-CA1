@@ -2,12 +2,15 @@
 <div>
 <b-container>
 
+
  <div>
+     <router-link style="text-decoration: none; color: inherit;" :to="{name: 'country', params: {country: this.countries.name.common}}">
   <b-jumbotron :style="`background-image: url(${this.countryImage})`" class="jumbo" >
     <div class="jumboTitle"><p>{{this.countries.name.official}}</p></div>
     <div class="jumboText"><p>Most commonly know as {{this.countries.name.common}}</p></div>
     <div class="jumboText"><p>From the {{this.countries.subregion}} region</p></div>
   </b-jumbotron>
+     </router-link>
 </div>
 
 

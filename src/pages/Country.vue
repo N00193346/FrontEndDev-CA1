@@ -67,13 +67,13 @@
            
               class="mb-2"
   >           
-               <b-card-text>
+               <b-card-text class="cardText">
                 {{ this.countries[0].capital[0]  }}
               </b-card-text>
-              <b-card-text>
+              <b-card-text class="cardText">
                 {{ Math.round(this.weather.main.temp) }}°C
               </b-card-text>
-               <b-card-text>
+               <b-card-text class="cardText">
                 {{this.weather.weather[0].main}}
               </b-card-text>
             </b-card>
@@ -220,7 +220,7 @@ export default {
   margin-top: 20px;
 }
 
-.card-text{
+.cardText{
   font-size: 32px;
   font-weight: 700;
 }

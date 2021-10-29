@@ -1,21 +1,22 @@
 <template>
 <div>
 <b-container>
- 
-<div>
-  <b-jumbotron class="jumbo"  :header="`${this.countries.name.official}`" :lead="`Most commonly know as ${this.countries.name.common}`">
-    <p><b>Region: </b> {{this.countries.subregion}}</p>
-    <img class="image" :src="this.countryImage">
 
-    
+ <div>
+  <b-jumbotron :style="`background-image: url(${this.countryImage})`" class="jumbo" >
+    <div class="jumboTitle"><p>{{this.countries.name.official}}</p></div>
+    <div class="jumboText"><p>Most commonly know as {{this.countries.name.common}}</p></div>
+    <div class="jumboText"><p>From the {{this.countries.subregion}} region</p></div>
   </b-jumbotron>
 </div>
+
+
 <div class="title">
 <h1> More countries from  {{this.countries.subregion}}</h1>
 </div>
 </b-container>
-
-  <div class="container">
+<div class="container">
+ 
     <CountryCard 
       v-for="country in relatedCountries"
       :key = "country.ccn3"
@@ -104,17 +105,23 @@ const RESTCOUNTRIES_URL = "https://restcountries.com/v3.1/"
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .jumbo{
     background-color: aliceblue;
     padding: 30px;
     margin: 25px;
-    left:0;
-    right:0;
-    border: solid 2px;
+    width:1080px;
+    height:600px;
+    /* left:0;
+    right:0; */
+    /* border: solid 2px; */
+    background-repeat:no-repeat;
+     background-size: 100%;
     display: flex;
-    align-content: center;
+    /* align-content: center; */
     flex-direction: column;
 }
 
@@ -124,6 +131,19 @@ const RESTCOUNTRIES_URL = "https://restcountries.com/v3.1/"
   margin-right: auto;
     max-width: 1000px;
      max-height: 1000px;
-    
+}
+
+.jumboTitle{
+    color: white;
+    font-size: 52px;
+    font-weight: 600;
+    font-style: italic;
+    text-shadow: #000 0px 0px 5px;
+}
+
+.jumboText{
+    color: white;
+    font-size: 24px;
+    text-shadow: #000 0px 0px 10px;
 }
 </style>

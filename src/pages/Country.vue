@@ -84,21 +84,12 @@
          <div class="subtitle">
               Public Holidays:
             </div>
-         <b-card
-          :title = this.holidays[0].name
-          :img-src= this.holidayImages[0]
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem;"
-          class="mb-2"
-        >
-          <b-card-text>
-            {{this.holidays[0].description}}
-          </b-card-text>
-
-         
-  </b-card>
+      
+      <HolidayCard 
+      v-for="(holiday, index) in holidays"
+      :key = "holiday"
+      :holiday="holiday"
+      :holidayImage="holidayImages[index]"/>
 
       </b-row>
     </b-container>
@@ -109,6 +100,7 @@
 import axios from "axios";
 // import CountryCard from '@/components/CountryCard'
 // import EventCard from '@/components/EventCard'
+import HolidayCard from '@/components/HolidayCard'
 const EVENTS_API_KEY = "&apikey=EcGMSU6HjGfoAlCxMfW8P70iTXUrz8Le";
 const EVENTS_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=";
@@ -125,6 +117,7 @@ export default {
     // CountryCard,
     // EventCard,
     // GOOGLEMAPS,
+    HolidayCard,
   },
   data() {
     return {

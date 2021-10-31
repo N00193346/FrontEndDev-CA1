@@ -18,7 +18,7 @@
      <hr>
       <b>Languages: </b>{{ this.languages}}
         <hr>
-      <b>Currency: </b> {{ country.currencies}}
+      <b>Currency: </b> {{this.currenciesName.toString() + " (" + this.currenciesSymbol + ")"}}
         <hr>
        <b>Population: </b>  {{ country.population}}
     </b-card-text>
@@ -38,17 +38,26 @@
         },
         data()  {
           return{
-          languages: []
+          languages: [],
+          currencies: [],
+          currenciesName: [],
+          currenciesSymbol: []
           };
         },
         mounted() {
-        
+            //Get object values from languages, turn them into a string
             this.languages = Object.values(this.country.languages)
             this.languages = this.languages.toString()
-            .replace(`"`, "") //remove the commas
-            .replace("[", "") //remove the right bracket
-            .replace("]", "") //remove the left bracket
-            .trim(); 
+
+             //Get object values from currency
+            this.currencies = Object.values(this.country.currencies)
+            //Loop through currencies, push the name and symbol into respective array
+          for (var i = 0; i < this.currencies.length; i++){
+              this.currenciesName.push(this.currencies[i].name) 
+              this.currenciesSymbol.push(this.currencies[i].symbol) 
+          }
+    
+           
           }
         
     }

@@ -1,15 +1,33 @@
 <template>
   <div class="container">
 
+        <paginate 
+        name="countries"
+        :list="countries"
+        :per="3"
+        >
  
+    <div class="row-Container">
         <CountryCard 
-      v-for="country in countries"
+      v-for="country in paginated('countries')"
       :key = "country.ccn3"
       :country="country"
       />
- 
+    </div>
+    </paginate>
 
-    
+       <div class="row-Container">
+        <paginate-links
+        for="countries"
+        class="linkCSS"
+          :simple="{
+            prev: '← Back   ',
+            next: '   Next →'
+        }"
+        ></paginate-links>
+       </div>
+
+   
   </div>
 </template>
      
@@ -26,8 +44,9 @@ import CountryCard from '@/components/CountryCard'
         },
         data () {
             return {
-                countries: []
-            }
+                countries: [],
+                paginate: ['countries'],
+            };
         },
         mounted () {
             axios.get('https://restcountries.com/v3.1/all')
@@ -36,10 +55,28 @@ import CountryCard from '@/components/CountryCard'
                      this.countries = response.data
                      })
                  .catch(error => console.log(error))
-        }
+        },
+      
+        
     }
 </script>
 
-<style>
+<style scoped>
+.row-Container{
+  
 
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+}
+
+.linkCSS {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+
+}
 </style>

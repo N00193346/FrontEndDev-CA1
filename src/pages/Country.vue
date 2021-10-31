@@ -85,6 +85,8 @@
               Public Holidays:
             </div>
       
+      </b-row>
+       <b-row>
       <HolidayCard 
       v-for="(holiday, index) in holidays"
       :key = "holiday"

@@ -5,7 +5,8 @@
         <CountryCard 
       v-for="country in countries"
       :key = "country.ccn3"
-      :country="country"/>
+      :country="country"
+      />
  
 
     

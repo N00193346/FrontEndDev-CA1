@@ -1,5 +1,5 @@
 <template>
-
+  
  
     <router-link style="text-decoration: none; color: inherit;" :to="{name: 'country', params: {country: country.name.common}}">
     <b-card
@@ -11,16 +11,18 @@
     style="max-width: 20rem;"
     class="mb-2"
   >
+
+  
     <b-card-text>
      <b>Capital City: </b>{{ country.capital[0]}}
      <hr>
-      <b>Languages: </b>{{ country.languages}}
+      <b>Languages: </b>{{ this.languages}}
         <hr>
       <b>Currency: </b> {{ country.currencies}}
         <hr>
        <b>Population: </b>  {{ country.population}}
     </b-card-text>
-
+        
   </b-card>
   </router-link >
 
@@ -33,8 +35,24 @@
         name: 'CountryCard',
         props: {
             country: Object
-        }
+        },
+        data()  {
+          return{
+          languages: []
+          };
+        },
+        mounted() {
+        
+            this.languages = Object.values(this.country.languages)
+            this.languages = this.languages.toString()
+            .replace(`"`, "") //remove the commas
+            .replace("[", "") //remove the right bracket
+            .replace("]", "") //remove the left bracket
+            .trim(); 
+          }
+        
     }
+
 </script>
 
 <style>

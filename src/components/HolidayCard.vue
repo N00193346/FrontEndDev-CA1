@@ -7,7 +7,7 @@
     img-alt="Image"
     tag="article"
     style="max-width: 20rem;"
-    class="mb-2"
+    class="mb-2 holidayCard shadow p-3 mb-5 bg-white rounded"
   >
 
     <b-card-text>
@@ -34,13 +34,19 @@
 </script>
 
 <style>
-.card{
+
+
+
+.holidayCard{
   margin: 20px;
+  width: 100%;
+
 }
 
-img {
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
+.holidayCard > img{
+ 
+  object-fit: cover;
+  height: 300px;
+  width: 285px;
 }
 </style>

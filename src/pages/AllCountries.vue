@@ -1,18 +1,23 @@
 <template>
   <div class="container">
-
+   <div class="title">
+       All Countries
+   </div>
         <paginate 
         name="countries"
         :list="countries"
-        :per="3"
+        :per="6"
         >
  
-    <div class="row-Container">
+    <div class="row-Container marginLeft">
+  
+      <b-card-group> 
         <CountryCard 
       v-for="country in paginated('countries')"
       :key = "country.ccn3"
       :country="country"
       />
+        </b-card-group>
     </div>
     </paginate>
 
@@ -63,14 +68,16 @@ import CountryCard from '@/components/CountryCard'
 
 <style scoped>
 .row-Container{
-  
-
     margin-top: 20px;
     display: flex;
     justify-content: center;
     width: 100%;
     height: 100%;
 
+}
+
+.marginLeft{
+  margin-left: 55px
 }
 
 .linkCSS {

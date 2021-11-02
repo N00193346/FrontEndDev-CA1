@@ -39,7 +39,12 @@ export default {
                 this.countries = response.data
                 this.getEventData(this.countries[0].cca2);
               })
-              .catch(error => console.log(error))
+              .catch(function(error) { 
+                console.log(error)
+                alert("No country with that name exists")
+                 this.$router.push('/');
+              
+              })
         },
         methods: {
           getEventData(countryCode){
@@ -49,7 +54,7 @@ export default {
                 this.events = response.data._embedded.events
               })
                  .catch(error => console.log(error))
-          }
+          },
         }
 }
 </script>

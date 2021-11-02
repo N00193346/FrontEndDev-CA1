@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-navbar class="navbar" toggleable="lg" type="dark" variant="dark">
-    <b-navbar-brand href="#">Country Thing</b-navbar-brand>
+    <b-navbar-brand href="#">A Vue of the World </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -15,7 +15,7 @@
    
       <b-navbar-nav class="ml-auto">
         <b-nav-form class="input-group"> 
-          <b-form-input size="sm"  class="mr-sm-2" placeholder="Search" v-model="term" v-on:keyup.enter="searchCountry()"></b-form-input>
+          <b-form-input size="sm"  class="mr-sm-2" placeholder="Search for Country" v-model="term" v-on:keyup.enter="searchCountry()"></b-form-input>
         </b-nav-form>
          <b-button size="sm"   class="my-2 my-sm-0 marginLeft"  type="submit" @click="searchCountry()">Search</b-button>
    </b-navbar-nav>

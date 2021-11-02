@@ -2,14 +2,15 @@
   
  
     <router-link style="text-decoration: none; color: inherit;" :to="{name: 'country', params: {country: country.name.common}}">
-    <b-card
+    <b-card fluid-grow
     :title= country.name.common 
-     :img-src= country.flags.png
+    :img-src= country.flags.png
     img-alt="Image"
+
     img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2"
+    tag="country"
+    style="max-width: 21rem;"
+    class="mb-2 countryCard shadow p-3 mb-5 bg-white rounded"
   >
 
   
@@ -68,5 +69,15 @@
 .card{
   margin: 20px;
 
+}
+
+.countryCard{
+  object-fit: contain;
+}
+
+.countryCard > img{
+   object-fit: cover;
+  height: 150px;
+  width: 300px;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
+  <div class="app">
         <NavBar/>
       
+     <transition name="fade" mode="out-in"> 
     <router-view :key="$route.fullPath" />
+     </transition>
   </div>
 </template>
 
@@ -18,11 +20,17 @@ export default {
 </script>
 
 <style>
-.app {
 
-  display: flex;
-  align-content: flex-start;
-  flex-wrap: wrap ;
 
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
+
+.fade-enter-fom,
+.fade-leave-to {
+  opacity: 0;
+}
+
 </style>

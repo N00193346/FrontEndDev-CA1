@@ -87,12 +87,13 @@
       
       </b-row>
        <b-row>
+         <div class="cardContainer">
       <HolidayCard 
       v-for="(holiday, index) in holidays"
       :key = "holiday"
       :holiday="holiday"
       :holidayImage="holidayImages[index]"/>
-
+         </div>
       </b-row>
     </b-container>
   </div>
@@ -196,7 +197,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           //Loop through results to get 4 holidays
-           for (var i = 0; i < 4; i++) {
+           for (var i = 0; i < 3; i++) {
             //Push the name of the holiday into the holidays array
             this.holidays.push(response.data.response.holidays[i]);
             //Pass the name of holiday into the get holiday image to get a related image
@@ -227,6 +228,14 @@ export default {
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
+}
+
+.cardContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
 }
 
 .title {

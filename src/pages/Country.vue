@@ -1,106 +1,142 @@
 <template>
   <div>
-    <b-container fluid="md">
-      <b-row>
-        <div class="title">
-          {{ this.countries[0].name.official }}
-        </div>
-        <div class="countryInfo">
-          <b>Capital City: </b>{{ this.countries[0].capital[0] }}
-          <br />
-          <b>Languages: </b>{{ this.languages }}
-          <br />
-          <b>Currency: </b>
-          {{
-            this.currenciesName.toString() + " (" + this.currenciesSymbol + ")"
-          }}
-          <br />
-          <b>Population: </b> {{ this.countries[0].population }}
-        </div>
-      </b-row>
+    <b-container fluid="lg">
+      <div v-if="this.countries.length > 0">
+        <b-row>
+          <div class="title">
+            {{ this.countries[0].name.official }}
+          </div>
+          <div class="countryInfo">
+            <b>Capital City: </b>{{ this.countries[0].capital[0] }}
+            <br />
+            <b>Languages: </b>{{ this.languages }}
+            <br />
+            <b>Currency: </b>
+            {{
+              this.currenciesName.toString() +
+                " (" +
+                this.currenciesSymbol +
+                ")"
+            }}
+            <br />
+            <b>Population: </b> {{ this.countries[0].population }}
+          </div>
+        </b-row>
 
-      <b-row>
-        <b-carousel
-          controls
-          :interval="0"
-          indicators
-          no-animation
-          img-width="100vh"
-          img-height="480"
+        <b-row>
+          <!-- If there are images -->
+          <div v-if="this.countryImages">
+            <b-carousel
+              controls
+              :interval="0"
+              indicators
+              no-animation
+              img-width="100vh"
+              img-height="480"
+            >
+              <b-carousel-slide :img-src="this.countryImages[0]">
+              </b-carousel-slide>
+              <b-carousel-slide :img-src="this.countryImages[1]">
+              </b-carousel-slide>
+              <b-carousel-slide :img-src="this.countryImages[2]">
+              </b-carousel-slide>
+              <b-carousel-slide :img-src="this.countryImages[3]">
+              </b-carousel-slide>
+              <b-carousel-slide :img-src="this.countryImages[4]">
+              </b-carousel-slide>
+            </b-carousel>
+            <!-- Close if no images -->
+          </div>
+          <div v-else>
+            <b-alert show variant="danger"
+              ><a href="#" class="alert-link"
+                >Unable to find related images</a
+              ></b-alert
+            >
+          </div>
+        </b-row>
+
+        <b-row class="margin">
+          <b-col cols="8">
+            <div class="subtitle">
+              Location:
+            </div>
+            <iframe
+              width="100%"
+              height="450"
+              style="border:0"
+              loading="lazy"
+              allowfullscreen
+              :src="
+                `https://www.google.com/maps/embed/v1/place?key=AIzaSyDuFmToFBLDcb07oNdj66Gvebao37XTG74&q=${this.countries[0].name.common}`
+              "
+            >
+            </iframe>
+          </b-col>
+
+          <b-col>
+            <div class="subtitle">
+              Weather:
+            </div>
+            <b-card
+              :img-src="
+                `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@2x.png`
+              "
+              img-alt="Image"
+              img-height="100"
+              img-width="100"
+              img-top
+              tag="article"
+              class="mb-2"
+            >
+              <b-card-text class="cardText">
+                {{ this.countries[0].capital[0] }}
+              </b-card-text>
+              <b-card-text class="cardText">
+                {{ Math.round(this.weather.main.temp) }}°C
+              </b-card-text>
+              <b-card-text class="cardText">
+                {{ this.weather.weather[0].main }}
+              </b-card-text>
+            </b-card>
+          </b-col>
+        </b-row>
+
+        <b-row class="margin">
+          <div class="subtitle">
+            Public Holidays:
+          </div>
+        </b-row>
+        <b-row>
+          <!-- If there is data in the holiday array -->
+          <div v-if="this.holidays">
+            <div class="cardContainer">
+              <HolidayCard
+                v-for="(holiday, index) in holidays"
+                :key="holiday"
+                :holiday="holiday"
+                :holidayImage="holidayImages[index]"
+              />
+            </div>
+            <!-- Closing holiday if -->
+          </div>
+          <div v-else>
+            <b-alert show variant="danger"
+              ><a href="#" class="alert-link"
+                >Unable to find holiday information</a
+              ></b-alert
+            >
+          </div>
+        </b-row>
+        <!-- Closing country if -->
+      </div>
+      <div v-else>
+        <b-alert show variant="danger"
+          ><a href="#" class="alert-link"
+            >Unable to find {{ route.params }}</a
+          ></b-alert
         >
-          <b-carousel-slide :img-src="this.countryImages[0]">
-          </b-carousel-slide>
-          <b-carousel-slide :img-src="this.countryImages[1]">
-          </b-carousel-slide>
-          <b-carousel-slide :img-src="this.countryImages[2]">
-          </b-carousel-slide>
-          <b-carousel-slide :img-src="this.countryImages[3]">
-          </b-carousel-slide>
-          <b-carousel-slide :img-src="this.countryImages[4]">
-          </b-carousel-slide>
-        </b-carousel>
-      </b-row>
-
-      <b-row class="margin">
-        <b-col cols="8">
-          <div class="subtitle">
-            Location:
-          </div>
-          <iframe
-            width="100%"
-            height="450"
-            style="border:0"
-            loading="lazy"
-            allowfullscreen
-            :src="
-              `https://www.google.com/maps/embed/v1/place?key=AIzaSyDuFmToFBLDcb07oNdj66Gvebao37XTG74&q=${this.countries[0].name.common}`
-            "
-          >
-          </iframe>
-        </b-col>
-        <b-col>
-          <div class="subtitle">
-            Weather:
-          </div>
-          <b-card
-            :img-src="
-              `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@2x.png`
-            "
-            img-alt="Image"
-            img-height="100"
-            img-width="100"
-            img-top
-            tag="article"
-            class="mb-2"
-          >
-            <b-card-text class="cardText">
-              {{ this.countries[0].capital[0] }}
-            </b-card-text>
-            <b-card-text class="cardText">
-              {{ Math.round(this.weather.main.temp) }}°C
-            </b-card-text>
-            <b-card-text class="cardText">
-              {{ this.weather.weather[0].main }}
-            </b-card-text>
-          </b-card>
-        </b-col>
-      </b-row>
-
-      <b-row class="margin">
-        <div class="subtitle">
-          Public Holidays:
-        </div>
-      </b-row>
-      <b-row>
-        <div class="cardContainer">
-          <HolidayCard
-            v-for="(holiday, index) in holidays"
-            :key="holiday"
-            :holiday="holiday"
-            :holidayImage="holidayImages[index]"
-          />
-        </div>
-      </b-row>
+      </div>
     </b-container>
   </div>
 </template>

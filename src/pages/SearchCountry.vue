@@ -83,7 +83,7 @@ export default {
 
 </script>
 
-<style>
+<style  scoped>
 .container{
   display: flex;
   align-content: flex-start;

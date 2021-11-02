@@ -42,7 +42,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 .navbar {
     margin: 0;
     padding: 7.5px 15px;

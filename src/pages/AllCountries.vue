@@ -67,6 +67,13 @@ import CountryCard from '@/components/CountryCard'
 </script>
 
 <style scoped>
+
+.container {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
 .row-Container{
     margin-top: 20px;
     display: flex;
@@ -85,5 +92,12 @@ import CountryCard from '@/components/CountryCard'
   display: flex;
   justify-content: space-between;
 
+}
+
+.title{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 64px;
+  font-weight: 700;
 }
 </style>

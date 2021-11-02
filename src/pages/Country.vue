@@ -1,47 +1,52 @@
 <template>
   <div>
-   
     <b-container fluid="md">
       <b-row>
         <div class="title">
-     {{ this.countries[0].name.official }} 
+          {{ this.countries[0].name.official }}
+        </div>
+        <div class="countryInfo">
+          <b>Capital City: </b>{{ this.countries[0].capital[0] }}
+          <br />
+          <b>Languages: </b>{{ this.languages }}
+          <br />
+          <b>Currency: </b>
+          {{
+            this.currenciesName.toString() + " (" + this.currenciesSymbol + ")"
+          }}
+          <br />
+          <b>Population: </b> {{ this.countries[0].population }}
         </div>
       </b-row>
 
       <b-row>
-      <b-carousel
-        controls
-        :interval="0"
-        indicators
-        no-animation
-        img-width="100vh"
-        img-height="480"
-      >
-        <b-carousel-slide :img-src="this.countryImages[0]">
- 
-        </b-carousel-slide>
-        <b-carousel-slide :img-src="this.countryImages[1]">
-   
-        </b-carousel-slide>
-        <b-carousel-slide :img-src="this.countryImages[2]">
-      
-        </b-carousel-slide>
-        <b-carousel-slide :img-src="this.countryImages[3]">
-     
-        </b-carousel-slide>
-        <b-carousel-slide :img-src="this.countryImages[4]">
-      
-        </b-carousel-slide>
-      </b-carousel>
+        <b-carousel
+          controls
+          :interval="0"
+          indicators
+          no-animation
+          img-width="100vh"
+          img-height="480"
+        >
+          <b-carousel-slide :img-src="this.countryImages[0]">
+          </b-carousel-slide>
+          <b-carousel-slide :img-src="this.countryImages[1]">
+          </b-carousel-slide>
+          <b-carousel-slide :img-src="this.countryImages[2]">
+          </b-carousel-slide>
+          <b-carousel-slide :img-src="this.countryImages[3]">
+          </b-carousel-slide>
+          <b-carousel-slide :img-src="this.countryImages[4]">
+          </b-carousel-slide>
+        </b-carousel>
       </b-row>
 
-      <b-row>
+      <b-row class="margin">
         <b-col cols="8">
-            <div class="subtitle">
-              Location:
-            </div>
+          <div class="subtitle">
+            Location:
+          </div>
           <iframe
-           
             width="100%"
             height="450"
             style="border:0"
@@ -54,46 +59,47 @@
           </iframe>
         </b-col>
         <b-col>
-             <div class="subtitle">
-              Weather:
-            </div>
-            <b-card 
-              :img-src="`http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@2x.png`"
-              img-alt="Image"
-              img-height="100"
-              img-width="100"
-              img-top
-              tag="article"
-           
-              class="mb-2"
-  >           
-               <b-card-text class="cardText">
-                {{ this.countries[0].capital[0]  }}
-              </b-card-text>
-              <b-card-text class="cardText">
-                {{ Math.round(this.weather.main.temp) }}°C
-              </b-card-text>
-               <b-card-text class="cardText">
-                {{this.weather.weather[0].main}}
-              </b-card-text>
-            </b-card>
+          <div class="subtitle">
+            Weather:
+          </div>
+          <b-card
+            :img-src="
+              `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@2x.png`
+            "
+            img-alt="Image"
+            img-height="100"
+            img-width="100"
+            img-top
+            tag="article"
+            class="mb-2"
+          >
+            <b-card-text class="cardText">
+              {{ this.countries[0].capital[0] }}
+            </b-card-text>
+            <b-card-text class="cardText">
+              {{ Math.round(this.weather.main.temp) }}°C
+            </b-card-text>
+            <b-card-text class="cardText">
+              {{ this.weather.weather[0].main }}
+            </b-card-text>
+          </b-card>
         </b-col>
       </b-row>
 
-      <b-row>
-         <div class="subtitle">
-              Public Holidays:
-            </div>
-      
+      <b-row class="margin">
+        <div class="subtitle">
+          Public Holidays:
+        </div>
       </b-row>
-       <b-row>
-         <div class="cardContainer">
-      <HolidayCard 
-      v-for="(holiday, index) in holidays"
-      :key = "holiday"
-      :holiday="holiday"
-      :holidayImage="holidayImages[index]"/>
-         </div>
+      <b-row>
+        <div class="cardContainer">
+          <HolidayCard
+            v-for="(holiday, index) in holidays"
+            :key="holiday"
+            :holiday="holiday"
+            :holidayImage="holidayImages[index]"
+          />
+        </div>
       </b-row>
     </b-container>
   </div>
@@ -103,7 +109,7 @@
 import axios from "axios";
 // import CountryCard from '@/components/CountryCard'
 // import EventCard from '@/components/EventCard'
-import HolidayCard from '@/components/HolidayCard'
+import HolidayCard from "@/components/HolidayCard";
 const EVENTS_API_KEY = "&apikey=EcGMSU6HjGfoAlCxMfW8P70iTXUrz8Le";
 const EVENTS_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=";
@@ -132,6 +138,10 @@ export default {
       lon: String,
       holidays: [],
       holidayImages: [],
+      languages: [],
+      currencies: [],
+      currenciesName: [],
+      currenciesSymbol: [],
     };
   },
   mounted() {
@@ -150,10 +160,27 @@ export default {
         this.lon = this.countries[0].capitalInfo.latlng[1];
         this.getCountryWeather(this.lat, this.lon);
         this.getCountryHolidays(this.countries[0].cca2);
+        this.getCountryLanguages(this.countries[0]);
+        this.getCountryCurrencies(this.countries[0]);
       })
       .catch((error) => console.log(error));
   },
   methods: {
+    getCountryLanguages(country) {
+      //Get object values from languages, turn them into a string
+      this.languages = Object.values(country.languages);
+      this.languages = this.languages.toString();
+    },
+    getCountryCurrencies(country) {
+      //Get object values from currency
+      this.currencies = Object.values(country.currencies);
+      //Loop through currencies, push the name and symbol into respective array
+      for (var i = 0; i < this.currencies.length; i++) {
+        this.currenciesName.push(this.currencies[i].name);
+        this.currenciesSymbol.push(this.currencies[i].symbol);
+      }
+    },
+    //Get Events in country
     getEventData(countryCode) {
       axios
         .get(`${EVENTS_URL}${countryCode}${EVENTS_API_KEY}`)
@@ -177,7 +204,7 @@ export default {
 
         .catch((error) => console.log(error));
     },
-    //Get country's weather using latitude and longitude 
+    //Get country's weather using latitude and longitude
     getCountryWeather(lat, lon) {
       axios
         .get(
@@ -185,28 +212,30 @@ export default {
         )
         .then((response) => {
           this.weather = response.data;
-          console.log("The weather icon is : " + this.weather.weather[0].icon)
+          console.log("The weather icon is : " + this.weather.weather[0].icon);
         })
 
         .catch((error) => console.log(error));
     },
     //Get country's holidays using country code
-     getCountryHolidays(countryCode) {
+    getCountryHolidays(countryCode) {
       axios
-        .get(`${CALANDARIFIC_URL}${CALANDARIFIC_API_KEY}&country=${countryCode}&year=2021`)
+        .get(
+          `${CALANDARIFIC_URL}${CALANDARIFIC_API_KEY}&country=${countryCode}&year=2021`
+        )
         .then((response) => {
           console.log(response.data);
           //Loop through results to get 4 holidays
-           for (var i = 0; i < 3; i++) {
+          for (var i = 0; i < 3; i++) {
             //Push the name of the holiday into the holidays array
             this.holidays.push(response.data.response.holidays[i]);
             //Pass the name of holiday into the get holiday image to get a related image
             this.getHolidayImages(response.data.response.holidays[i].name);
           }
-          console.log("The holidays are: " + this.holidays)
+          console.log("The holidays are: " + this.holidays);
         })
         .catch((error) => console.log(error));
-    }, 
+    },
     //Get images related to holiday
     getHolidayImages(holidayName) {
       axios
@@ -223,7 +252,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   display: flex;
   align-content: flex-start;
@@ -231,16 +260,15 @@ export default {
 }
 
 .cardContainer {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 }
 
 .title {
   margin-top: 20px;
-  margin-bottom: 20px;
   font-size: 64px;
   font-weight: 700;
 }
@@ -249,6 +277,11 @@ export default {
   margin-bottom: 10px;
   font-size: 46px;
   font-weight: 700;
+}
+
+.countryInfo {
+  margin-bottom: 20px;
+  font-size: 24px;
 }
 
 /* .image {
@@ -270,7 +303,7 @@ export default {
   margin-right: 350px;
 }
 
-.flex{
+.flex {
   display: flex;
 }
 
@@ -278,7 +311,7 @@ export default {
   margin-top: 20px;
 }
 
-.cardText{
+.cardText {
   font-size: 32px;
   font-weight: 700;
 }

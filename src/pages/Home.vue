@@ -116,11 +116,11 @@ export default {
   font-weight: 700;
 }
 
-/* .image {
+.image {
   display: block;
   margin-left: auto;
   margin-right: auto;
   max-width: 1000px;
   max-height: 1000px;
-} */
+}
 </style>

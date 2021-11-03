@@ -35,4 +35,33 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.jumbo {
+  background-color: aliceblue;
+  padding: 30px;
+  margin: 25px;
+  width: 1080px;
+  height: 600px;
+  /* left:0;
+    right:0; */
+  /* border: solid 2px; */
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  /* align-content: center; */
+  flex-direction: column;
+}
+
+.jumboTitle {
+  color: white;
+  font-size: 52px;
+  font-weight: 600;
+  font-style: italic;
+  text-shadow: #000 0px 0px 5px;
+}
+.jumboText {
+  color: white;
+  font-size: 24px;
+  text-shadow: #000 0px 0px 10px;
+}
+</style>

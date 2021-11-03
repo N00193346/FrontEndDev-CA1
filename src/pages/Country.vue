@@ -50,27 +50,7 @@
             <div class="subtitle">
               Weather:
             </div>
-            <!-- <b-card
-              :img-src="
-                `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@2x.png`
-              "
-              img-alt="Image"
-              img-height="100"
-              img-width="100"
-              img-top
-              tag="article"
-              class="mb-2"
-            >
-              <b-card-text class="cardText">
-                {{ this.countries[0].capital[0] }}
-              </b-card-text>
-              <b-card-text class="cardText">
-                {{ Math.round(this.weather.main.temp) }}°C
-              </b-card-text>
-              <b-card-text class="cardText">
-                {{ this.weather.weather[0].main }}
-              </b-card-text>
-            </b-card> -->
+
             <WeatherCard
               :weatherInfo="this.weather"
               :country="this.countries[0]"

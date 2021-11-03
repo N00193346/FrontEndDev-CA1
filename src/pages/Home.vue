@@ -1,30 +1,7 @@
 <template>
   <div>
     <b-container>
-      <div>
-        <router-link
-          style="text-decoration: none; color: inherit;"
-          :to="{
-            name: 'country',
-            params: { country: this.countries.name.common },
-          }"
-        >
-          <b-jumbotron
-            :style="`background-image: url(${this.countryImage})`"
-            class="jumbo"
-          >
-            <div class="jumboTitle">
-              <p>{{ this.countries.name.official }}</p>
-            </div>
-            <div class="jumboText">
-              <p>Most commonly know as {{ this.countries.name.common }}</p>
-            </div>
-            <div class="jumboText">
-              <p>From the {{ this.countries.subregion }} region</p>
-            </div>
-          </b-jumbotron>
-        </router-link>
-      </div>
+      <Jumbotron :country="this.countries" :countryImage="this.countryImage" />
     </b-container>
 
     <b-row>
@@ -46,6 +23,7 @@
 <script>
 import axios from "axios";
 import CountryCard from "@/components/CountryCard";
+import Jumbotron from "@/components/Jumbotron";
 const UNSPLASH_URL = "https://api.unsplash.com/search/photos/?client_id=";
 const UNSPLASH_API_KEY = "XhqXA2Jig1drfBj96ploqpKdat9N94vn0GPzbrYjwK8&";
 const RESTCOUNTRIES_URL = "https://restcountries.com/v3.1/";
@@ -54,6 +32,7 @@ export default {
   name: "AllCountries",
   components: {
     CountryCard,
+    Jumbotron,
   },
   data() {
     return {
@@ -137,41 +116,11 @@ export default {
   font-weight: 700;
 }
 
-.jumbo {
-  background-color: aliceblue;
-  padding: 30px;
-  margin: 25px;
-  width: 1080px;
-  height: 600px;
-  /* left:0;
-    right:0; */
-  /* border: solid 2px; */
-  background-repeat: no-repeat;
-  background-size: 100%;
-  display: flex;
-  /* align-content: center; */
-  flex-direction: column;
-}
-
-.image {
+/* .image {
   display: block;
   margin-left: auto;
   margin-right: auto;
   max-width: 1000px;
   max-height: 1000px;
-}
-
-.jumboTitle {
-  color: white;
-  font-size: 52px;
-  font-weight: 600;
-  font-style: italic;
-  text-shadow: #000 0px 0px 5px;
-}
-
-.jumboText {
-  color: white;
-  font-size: 24px;
-  text-shadow: #000 0px 0px 10px;
-}
+} */
 </style>

@@ -26,25 +26,7 @@
         <b-row>
           <!-- If there are images -->
           <div v-if="this.countryImages">
-            <b-carousel
-              controls
-              :interval="0"
-              indicators
-              no-animation
-              img-width="100vh"
-              img-height="480"
-            >
-              <b-carousel-slide :img-src="this.countryImages[0]">
-              </b-carousel-slide>
-              <b-carousel-slide :img-src="this.countryImages[1]">
-              </b-carousel-slide>
-              <b-carousel-slide :img-src="this.countryImages[2]">
-              </b-carousel-slide>
-              <b-carousel-slide :img-src="this.countryImages[3]">
-              </b-carousel-slide>
-              <b-carousel-slide :img-src="this.countryImages[4]">
-              </b-carousel-slide>
-            </b-carousel>
+            <ImageCarousel :images="this.countryImages" />
             <!-- Close if no images -->
           </div>
           <div v-else>
@@ -61,24 +43,14 @@
             <div class="subtitle">
               Location:
             </div>
-            <iframe
-              width="100%"
-              height="450"
-              style="border:0"
-              loading="lazy"
-              allowfullscreen
-              :src="
-                `https://www.google.com/maps/embed/v1/place?key=AIzaSyDuFmToFBLDcb07oNdj66Gvebao37XTG74&q=${this.countries[0].name.common}`
-              "
-            >
-            </iframe>
+            <GoogleMaps :countryName="this.countries[0].name.common" />
           </b-col>
 
           <b-col>
             <div class="subtitle">
               Weather:
             </div>
-            <b-card
+            <!-- <b-card
               :img-src="
                 `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@2x.png`
               "
@@ -98,7 +70,11 @@
               <b-card-text class="cardText">
                 {{ this.weather.weather[0].main }}
               </b-card-text>
-            </b-card>
+            </b-card> -->
+            <WeatherCard
+              :weatherInfo="this.weather"
+              :country="this.countries[0]"
+            />
           </b-col>
         </b-row>
 
@@ -143,9 +119,10 @@
 
 <script>
 import axios from "axios";
-// import CountryCard from '@/components/CountryCard'
-// import EventCard from '@/components/EventCard'
 import HolidayCard from "@/components/HolidayCard";
+import ImageCarousel from "@/components/ImageCarousel";
+import GoogleMaps from "@/components/GoogleMaps";
+import WeatherCard from "@/components/WeatherCard";
 const EVENTS_API_KEY = "&apikey=EcGMSU6HjGfoAlCxMfW8P70iTXUrz8Le";
 const EVENTS_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=";
@@ -163,6 +140,9 @@ export default {
     // EventCard,
     // GOOGLEMAPS,
     HolidayCard,
+    ImageCarousel,
+    GoogleMaps,
+    WeatherCard,
   },
   data() {
     return {
@@ -318,25 +298,6 @@ export default {
 .countryInfo {
   margin-bottom: 20px;
   font-size: 24px;
-}
-
-/* .image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 100%;
-  max-height: 480px;
-} */
-.carousel-item img {
-  height: 80vh !important ;
-  width: 124vh !important ;
-}
-.carouselTitle {
-  font-size: 52px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
-  margin-bottom: 600px;
-  margin-right: 350px;
 }
 
 .flex {

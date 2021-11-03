@@ -23,6 +23,7 @@
         <router-link :to="{ name: 'all_countries' }">here</router-link> to see
         all countries
       </div>
+
       <b-form-input
         v-model="newTerm"
         placeholder="Search for a country"
@@ -102,7 +103,6 @@ export default {
 .container {
   display: flex;
   align-content: flex-start;
-  flex-wrap: wrap;
 }
 
 .margin {

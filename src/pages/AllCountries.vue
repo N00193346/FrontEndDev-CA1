@@ -18,10 +18,10 @@
     <div class="row-Container">
       <paginate-links
         for="countries"
-        class="linkCSS"
+        class="linkCSS w-50"
         :simple="{
           prev: '← Back   ',
-          next: '   Next →',
+          next: 'Next →',
         }"
       ></paginate-links>
     </div>
@@ -77,9 +77,9 @@ export default {
 .linkCSS {
   list-style: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  font-weight: 700;
 }
-
 .title {
   margin-top: 20px;
   margin-bottom: 20px;

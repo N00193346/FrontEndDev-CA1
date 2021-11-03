@@ -19,7 +19,8 @@
                 ")"
             }}
             <br />
-            <b>Population: </b> {{ this.countries[0].population }}
+            <b>Population: </b>
+            {{ this.countries[0].population.toLocaleString() }}
           </div>
         </b-row>
 

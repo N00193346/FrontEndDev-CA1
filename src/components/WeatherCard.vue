@@ -4,8 +4,8 @@
       `http://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png`
     "
     img-alt="Image"
-    img-height="100"
-    img-width="100"
+    img-height="245"
+    img-width="245"
     img-top
     tag="article"
     class="mb-2"

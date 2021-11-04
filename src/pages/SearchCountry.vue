@@ -2,11 +2,13 @@
   <div class="container">
     <!-- If the length of the array is greater than zero, show the countries related to the term -->
     <div v-if="this.countries.length > 0">
-      <CountryCard
-        v-for="country in countries"
-        :key="country.ccn3"
-        :country="country"
-      />
+      <b-card-group class="margin">
+        <CountryCard
+          v-for="country in countries"
+          :key="country.ccn3"
+          :country="country"
+        />
+      </b-card-group>
     </div>
     <!-- Else display -->
     <div v-else>
@@ -37,7 +39,6 @@
         @click="searchNewCountry()"
         >Search</b-button
       >
-      <!-- <div class="mt-2">Value: {{ newTerm }}</div> -->
     </div>
   </div>
 </template>

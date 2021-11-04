@@ -2,11 +2,13 @@
   <div>
     <b-carousel
       controls
+      class="carouselImage"
       :interval="0"
       indicators
       no-animation
       img-width="100vh"
       img-height="480"
+      style="overflow: hidden;"
     >
       <b-carousel-slide :img-src="images[0]"> </b-carousel-slide>
       <b-carousel-slide :img-src="images[1]"> </b-carousel-slide>
@@ -27,8 +29,9 @@ export default {
 </script>
 
 <style scoped>
-.carousel-item img {
-  height: 80vh !important ;
-  width: 124vh !important ;
+.carouselImage {
+  width: 100%;
+  height: 80vh;
+  object-fit: contain;
 }
 </style>

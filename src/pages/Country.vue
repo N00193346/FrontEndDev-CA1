@@ -28,6 +28,7 @@
           <!-- If there are images -->
           <div v-if="this.countryImages">
             <ImageCarousel :images="this.countryImages" />
+
             <!-- Close if no images -->
           </div>
           <div v-else>
